@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Қосымша ашылуда...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Жалған мысал мәндер -->
+  <script>
+    const query = new URLSearchParams(window.location.search);
+    const articleId = query.get('id') ?? '';
+
+    // 📱 Бұл — сенімен келісілген жалған deep link scheme
+    const deepLink = `myappscheme://article?id=${articleId}`;
+
+    // 🏪 Бұл — жалған Google Play сілтемесі (қалауыңша ауыстырасың)
+    const fallbackUrl = 'https://play.google.com/store/apps/details?id=kz.ana';
+
+    function openApp() {
+      // 1. Scheme арқылы ашуға тырысамыз
+      window.location = deepLink;
+
+      // 2. Егер қолданба орнатылмаса — 1.5 секундтан соң Play Market ашылады
+      setTimeout(() => {
+        window.location.href = fallbackUrl;
+      }, 1500);
+    }
+
+    window.onload = openApp;
+  </script>
+</head>
+<body>
+  <h3>Қосымша ашылуда...</h3>
+</body>
+</html>
